@@ -1,0 +1,18 @@
+<form >
+  grid: <input type="text" name="grid" value="" id="grid"><br>
+  <input type="submit" (click)="handleClick()">
+</form>
+
+<select id="mySelect" (change)="MakeShape($event.target.value);">
+<option value="">Select Shape </option>
+<option value="Blinker">Blinker </option>
+<option value="Toad">Toad </option>
+<option value="Glider">Glider </option>
+<option value="Beacon">Beacon </option>
+<option value="Pentadecathlon">Pentadecathlon</option>
+</select>
+<br>
+<div>
+<button (click)="NextGeneration()">Start</button>
+<button (click)="Pause()">Pause</button>
+</div>
