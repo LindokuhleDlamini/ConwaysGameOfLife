@@ -2,12 +2,12 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 
 import { AppComponent } from './app.component';
-import { GOLComponent } from './gol/gol.component';
+import { GameOfLifeComponent } from './game-of-life/game-of-life.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    GOLComponent
+    GameOfLifeComponent
   ],
   imports: [
     BrowserModule
