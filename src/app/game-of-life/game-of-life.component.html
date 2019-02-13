@@ -1,9 +1,9 @@
 <form >
   grid: <input type="text" name="grid" value="" id="grid"><br>
-  <input type="submit" (click)="handleClick()">
+  <input type="submit" (click)="setGridMetrix()">
 </form>
 
-<select id="mySelect" (change)="MakeShape($event.target.value);">
+<select id="mySelect" (change)="patternCreator($event.target.value);">
 <option value="">Select Shape </option>
 <option value="Blinker">Blinker </option>
 <option value="Toad">Toad </option>
@@ -13,6 +13,6 @@
 </select>
 <br>
 <div>
-<button (click)="NextGeneration()">Start</button>
+<button (click)="gameOfLifeSimulator()">Start</button>
 <button (click)="Pause()">Pause</button>
 </div>

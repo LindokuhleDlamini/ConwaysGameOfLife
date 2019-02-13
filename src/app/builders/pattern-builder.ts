@@ -1,7 +1,7 @@
-export class ShapeCreator{
-
-    public CreateShape(shape:string){
-        switch (shape) {
+export class PatternBuilder
+{
+    public build(pattern: string) {
+        switch (pattern) {
             case 'Blinker':
                 document.getElementById("3,5").className="clicked";
                 document.getElementById("4,5").className="clicked";
