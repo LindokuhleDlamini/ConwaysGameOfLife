@@ -1,62 +1,24 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { GridBuilder } from '../builders/grid-builder';
 import { PatternBuilder } from '../builders/pattern-builder';
 
 @Component({
-  selector: 'app-gol',
+  selector: 'app-game-of-life',
   templateUrl: './game-of-life.component.html',
   styleUrls: ['./game-of-life.component.css']
 })
 
-export class GameOfLifeComponent implements OnInit {
-
-  public allDataCellElements: Array<HTMLTableDataCellElement> = [];
-  public aliveDataCellElements: Array<HTMLTableDataCellElement> = [];
-  public deadDataCellElement: Array<HTMLTableDataCellElement> = [];
-  public gridBuilder: GridBuilder;
-  public gridElement: HTMLElement;
-  public gridMatrix:number;
+export class GameOfLifeComponent {
+  public aliveDataCellElements: Array<HTMLTableDataCellElement>;
+  public deadDataCellElements: Array<HTMLTableDataCellElement>;
   public inLoop: boolean;
-  public patternBuilder: PatternBuilder;
-  public selectedDataCellElements: Array<HTMLTableDataCellElement> = [];
 
-  ngOnInit() {
-    this.gridBuilder = new GridBuilder();
-    this.patternBuilder = new PatternBuilder();
-    this.inLoop = false;
-    this.gridMatrix = 20;
-    this.gridElement = document.getElementById('myGrid');
-
-    document.getElementsByTagName('app-gol')[0].appendChild(
-      this.gridBuilder.build(this.gridMatrix,
-        this.gridElement,
-        this.allDataCellElements,
-        this.selectedDataCellElements));
-  }
-
-  public setGridMetrix() {
-    let inputElement = (<HTMLInputElement>document.getElementById('grid'))
-    let inputValue = inputElement.value
-    this.gridElement.outerHTML = '';
-    this.allDataCellElements = [];
-    this.selectedDataCellElements = [];
-    this.gridMatrix = inputValue != '' ? parseInt(inputValue): 20;
-
-    this.gridBuilder.build(this.gridMatrix,
-      this.gridElement,
-      this.allDataCellElements,
-      this.selectedDataCellElements);
-
-    (<HTMLInputElement>this.gridElement).value = '';
-  }
-
-  public patternCreator(pattern: string){
-    this.patternBuilder.build(pattern);
-  }
+  @Input() allDataCellElements: Array<HTMLTableDataCellElement>;
+  @Input() gridMatrix: number;
 
   public gameOfLifeSimulator() {
     this.aliveDataCellElements = [];
-    this.deadDataCellElement = [];
+    this.deadDataCellElements = [];
     this.inLoop = true;
 
     for(let y = 0; y <this.gridMatrix; y++) {
@@ -66,12 +28,12 @@ export class GameOfLifeComponent implements OnInit {
     }
 
     this.aliveDataCellElements.map(x => x.className ='clicked');
-    this.deadDataCellElement.map(x => x.className = '');
+    this.deadDataCellElements.map(x => x.className = '');
 
     setTimeout(() => {
       if (this.inLoop){
         this.gameOfLifeSimulator();
-      } else{
+      } else {
         this.inLoop = true;
       }     
     }, 100);
@@ -100,9 +62,9 @@ export class GameOfLifeComponent implements OnInit {
   public gameOfLifeRules(neighbourCells: number, cell: HTMLTableDataCellElement) {
     let cellStatus = cell.className;
 
-    if((cellStatus === 'clicked') && (3 < neighbourCells || neighbourCells< 2)) {
-      this.deadDataCellElement.push(cell);
-    } else if((cellStatus !== 'clicked' && neighbourCells === 3) || (cellStatus === 'clicked' && 2 <= neighbourCells && neighbourCells < 4)){
+    if((cellStatus === 'clicked') && (3 < neighbourCells || neighbourCells < 2)) {
+      this.deadDataCellElements.push(cell);
+    } else if((cellStatus !== 'clicked' && neighbourCells === 3) || (cellStatus === 'clicked' && 2 <= neighbourCells && neighbourCells < 4)) {
       this.aliveDataCellElements.push(cell);
     }
   }

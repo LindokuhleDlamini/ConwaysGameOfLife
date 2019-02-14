@@ -1,42 +1,44 @@
 export class GridBuilder {
+    public selectedDataCellElements: Array<HTMLTableDataCellElement> = []
 
-    public build(metrix: number, gridElement: HTMLElement, allDataCellElements: Array<HTMLTableDataCellElement>, selectedDataCellElements: Array<HTMLTableDataCellElement>) {
-        let grid: HTMLElement;
+    public build(gridMetrix: number, allDataCellElements: Array<HTMLTableDataCellElement>) {
         let tableRowElement: HTMLTableRowElement;
         let tableDataElement: HTMLTableDataCellElement;
+        let gridElement = (<HTMLElement>document.getElementById('myGrid'));
 
         if (gridElement == null) {
-            grid = document.getElementsByTagName('app-gol')[0].appendChild(document.createElement('table'));
-            grid.className = 'grid';
-            grid.id = 'myGrid';
+            gridElement = document.getElementById('gameOfLife').appendChild(document.createElement('table'));
+            gridElement.className = 'grid';
+            gridElement.id = 'myGrid';
 
         } else {
-            grid = gridElement;
+            gridElement.outerHTML = '';
         }
 
-        for(let row = 0; row < metrix; row++) {
-            tableRowElement = grid.appendChild(document.createElement('tr'));
+        for(let row = 0; row < gridMetrix; row++) {
+            tableRowElement = gridElement.appendChild(document.createElement('tr'));
 
-            for(let column = 0; column < metrix; column++) {
+            for(let column = 0; column < gridMetrix; column++) {
                 let tableDataElement = tableRowElement.appendChild(document.createElement('td'));
                 tableDataElement.id = row + ',' + column;
                 allDataCellElements.push(tableDataElement);
 
                 tableDataElement.addEventListener('click', () => {
-                    this.setCellClassName(tableDataElement, selectedDataCellElements)
+                    this.setCellClassName(tableDataElement)
                 });
             }
         }
-        return grid;
     }
 
-    private setCellClassName(tableDataElement: HTMLTableDataCellElement, selectedDataCellElements: Array<HTMLTableDataCellElement>) {
-        if (selectedDataCellElements.indexOf(tableDataElement) < 0){
+    private setCellClassName(tableDataElement: HTMLTableDataCellElement) {
+        let dataElementIndex = this.selectedDataCellElements.indexOf(tableDataElement);
+
+        if (dataElementIndex < 0){
             tableDataElement.className = 'clicked';
-            selectedDataCellElements.push(tableDataElement);
+            this.selectedDataCellElements.push(tableDataElement);
         } else {
             tableDataElement.className = '';
-            selectedDataCellElements.splice(selectedDataCellElements.indexOf(tableDataElement));
+            this.selectedDataCellElements.splice(dataElementIndex);
         }
     }
 }

@@ -1,1 +1,4 @@
-<app-gol></app-gol>
+<app-grid-matrix (gridChanges)="gridChanges($event)"></app-grid-matrix>
+<app-pattern-dropdown></app-pattern-dropdown>
+<app-game-of-life [allDataCellElements]="allDataCellElements" [gridMatrix]="gridMatrix"></app-game-of-life>
+
