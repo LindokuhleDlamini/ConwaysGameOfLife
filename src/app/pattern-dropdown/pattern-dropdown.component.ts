@@ -7,7 +7,7 @@ import { PatternBuilder } from '../builders/pattern-builder';
     styleUrls: ['./pattern-dropdown.component.css']
   })
 
-export class PatternDropdown implements OnInit {
+export class PatternDropdownComponent implements OnInit {
 
     public patternBuilder: PatternBuilder;
 
