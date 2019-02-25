@@ -1,5 +1,5 @@
 export class GridBuilder {
-    public selectedDataCellElements: Array<HTMLTableDataCellElement> = []
+    public selectedDataCellElements: Array<HTMLTableDataCellElement> = [];
 
     public build(gridMetrix: number, allDataCellElements: Array<HTMLTableDataCellElement>) {
         let tableRowElement: HTMLTableRowElement;
@@ -15,25 +15,25 @@ export class GridBuilder {
             gridElement.outerHTML = '';
         }
 
-        for(let row = 0; row < gridMetrix; row++) {
+        for (let row = 0; row < gridMetrix; row++) {
             tableRowElement = gridElement.appendChild(document.createElement('tr'));
 
-            for(let column = 0; column < gridMetrix; column++) {
-                let tableDataElement = tableRowElement.appendChild(document.createElement('td'));
+            for (let column = 0; column < gridMetrix; column++) {
+                tableDataElement = tableRowElement.appendChild(document.createElement('td'));
                 tableDataElement.id = row + ',' + column;
                 allDataCellElements.push(tableDataElement);
 
                 tableDataElement.addEventListener('click', () => {
-                    this.setCellClassName(tableDataElement)
+                    this.setCellClassName(tableDataElement);
                 });
             }
         }
     }
 
     private setCellClassName(tableDataElement: HTMLTableDataCellElement) {
-        let dataElementIndex = this.selectedDataCellElements.indexOf(tableDataElement);
+        const dataElementIndex = this.selectedDataCellElements.indexOf(tableDataElement);
 
-        if (dataElementIndex < 0){
+        if (dataElementIndex < 0) {
             tableDataElement.className = 'clicked';
             this.selectedDataCellElements.push(tableDataElement);
         } else {

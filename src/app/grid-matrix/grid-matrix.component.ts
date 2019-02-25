@@ -7,12 +7,12 @@ import { GridBuilder } from '../builders/grid-builder';
     styleUrls: ['./grid-matrix.component.css']
   })
 
-export class GridMatrix implements OnInit {
+export class GridMatrixComponent implements OnInit {
   public allDataCellElements: Array<HTMLTableDataCellElement>;
   public gridBuilder: GridBuilder;
   public gridMatrix: number;
 
-  @Output() 
+  @Output()
   public gridChanges: EventEmitter<any> = new EventEmitter<any>();
 
   ngOnInit() {
@@ -24,9 +24,9 @@ export class GridMatrix implements OnInit {
   }
 
   public setGridMatrix() {
-    let inputElement = (<HTMLInputElement>document.getElementById('grid'));
-    let inputValue = inputElement.value;
-    this.gridMatrix = inputValue != '' ? parseInt(inputValue): 20;
+    const inputElement = (<HTMLInputElement>document.getElementById('grid'));
+    const inputValue = inputElement.value;
+    this.gridMatrix = inputValue !== '' ? Number(inputValue) : 20;
 
     this.gridBuilder.build(this.gridMatrix, this.allDataCellElements);
     this.gridChanges.emit({gridMatrix: this.gridMatrix, allDataCellElements: this.allDataCellElements});
